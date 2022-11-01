@@ -52,7 +52,7 @@ if (elAmount && elAmount.innerHTML) {
 }
 
 /*
-
+// on click - remove product from to-pay list - deduct item price from total amount.
 elAmount.click(function() {
         let $sel = $(this),
             $markedItems = $sel.find('.sp-return-this-marked'),
