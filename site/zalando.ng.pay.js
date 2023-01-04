@@ -1,9 +1,10 @@
 // document.addEventListener("DOMContentLoaded", function (event) {
 const merchantUuid = "6eef7164-caee-4af9-a710-a4930086218c";
-let qrPay = null;
+let qrPay = null,
+    elZPayInfo = $('h2[style="font-weight:bold"]');
 
 // Bitte stelle sicher, dass deine Zahlung von € 194,10 bei uns bis zum Mo., 05.12.2022 eingeht.
-let bankDetailsDirty = $($("h2.isiDul")).next().html().split("<br>") || null,
+let bankDetailsDirty = $(elZPayInfo).next().html().split("<br>") || null,
   bankDetails = [],
   elAmount =
     $('p[data-testid="customer_order-detail-view_open-amount-text"]') || null,
@@ -25,7 +26,7 @@ let bankDetailsDirty = $($("h2.isiDul")).next().html().split("<br>") || null,
     .replace(".", ","),
   $SEPAdigitalCode = $("#sepa-digital-pay-code") || null,
   $SEPAdigitalButton = $("#sepa-digital-pay-button") || null,
-  btnClasses = $("div.isiDul a").attr("class");
+  btnClasses = $("button[style='margin-top:25px;width:100%']").attr("class");
 
 function zalandoPay() {
   // authenticate BANKpay+ L2P App
@@ -108,11 +109,11 @@ function zalandoPay() {
   $('[role="status"]').find("svg").hide();*/
 
   //     .attr("style", "text-align:center; display: block;");
-  $("h2.isiDul")
+  elZPayInfo
     .html($("<span>").html(paymentInfoTxt))
     .attr("style", "font-weight: bold;text-align:left; display: block;");
-  $("h2.isiDul").next().prepend(qrImg);
-  $("h2.isiDul")
+  elZPayInfo.next().prepend(qrImg);
+  elZPayInfo
     .next()
     .prepend(
       $(
@@ -169,13 +170,13 @@ function zalandoPay() {
 
   payBar
     .html(
-      '<a class="SEPAinstant-link-pay bankpay-checkout ' +
+      '<button class="SEPAinstant-link-pay bankpay-checkout ' +
         " " +
         btnClasses +
-        '" style="width: 100%;" target="_blank" ' +
+        '" style="width: 100%;"' +
         'href="#">Jetzt mit deinem Bankkonto bezahlen: € ' +
         newAmountFormatted +
-        '</a>'
+        '</button>'
     )
     .fadeOut()
     .fadeIn();
